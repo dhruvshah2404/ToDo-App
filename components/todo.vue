@@ -14,9 +14,11 @@
         <p class="extra">
           (Click on todo to complete it)
         </p>
-        <li v-for="todo in todos" :key="todo.id" :class="{completed: todo.completed}" @click="uncomplete(todo)">
+        
+        <li v-for="todo in todos" :key="todo.id" :class="{completed: todo.completed}" class="fade-in" @click="uncomplete(todo)">
           {{ todo.title }}
         </li>
+       
       </ul>
       <div class="footer">
         <p v-if="uncompletedTodos.length >= 1" class="extra">
@@ -25,7 +27,7 @@
         <p v-if="todos.length === 0" class="completed-txt">
           You have completed all task!!!
         </p>
-        <button v-if="completedTodos.length >=1" class="item-btn" @click="todos = []">
+        <button v-if="completedTodos.length >=1" class="item-btn" @click="clearCompleted">
           clear completed
         </button>
       </div>
@@ -38,7 +40,8 @@ export default {
   data () {
     return {
       input: '',
-      todos: []
+      todos: [],
+      id:0
     }
   },
   computed: {
@@ -57,6 +60,9 @@ export default {
     completed (item) {
       item.completed = !item.completed
     },
+    clearCompleted () {
+      this.todos = this.uncompletedTodos;
+    },
     uncomplete (item) {
       item.completed = !item.completed
     },
@@ -67,6 +73,7 @@ export default {
         return
       }
       this.todos.push({
+        id:this.id++,
         title: newtodo,
         completed: false
       })
@@ -78,6 +85,23 @@ export default {
 
 <style lang='less'>
 @border : #77a4b9;
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 0.5s;
+	animation-timing-function: ease-in;
+	animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 hr {
   border-color: @border;
 }
