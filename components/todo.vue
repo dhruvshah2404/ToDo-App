@@ -100,7 +100,8 @@ li{
   width: 95%;
   margin: auto;
   padding: 15px 10px;
-  height: 55px;
+  min-height: 55px;
+  height: auto;
   align-items: center;
   display: flex;
   border-radius: 10px;
